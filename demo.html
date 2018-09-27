@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>InputRange demo</title>
+    <link rel="stylesheet" href="assets/nouislider.min.css">
+    <style>
+        body {
+            font-family: Ubuntu, Arial, sans-serif;
+        }
+
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .column {
+            width: 33.33%;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        input {
+            padding: 0.5rem;
+            width: calc(100% - 2rem);
+            font-size: 24px;
+            font-family: monospace;
+        }
+    </style>
+
+</head>
+<body>
+<div class="grid">
+    <div class="column" id="example">
+        <h3>Поле ввода со слайдером</h3>
+        <input type="text" data-min="0" data-max="100">
+        <div class="range-slider"></div>
+    </div>
+    <div class="column">
+        <h3>Поле ввода с настраиваемой версткой</h3>
+        <input type="text" data-min="100" data-max="500" id="js-example2-input">
+    </div>
+    <div class="column">
+        <div class="range-slider" id="js-example2-range" data-step="10"></div>
+    </div>
+</div>
+<script src="assets/PrettyInput.js"></script>
+<script src="assets/nouislider.min.js"></script>
+<script src="InputRange.js"></script>
+<script>
+    let p = new InputRange(document.getElementById('example'));
+    let n = new InputRange(document.getElementsByClassName('column')[1], {
+        input: new PrettyInput(document.getElementById('js-example2-input')),
+        range: document.getElementById('js-example2-range')
+    })
+</script>
+</body>
+</html>

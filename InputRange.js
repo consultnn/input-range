@@ -5,8 +5,8 @@ class InputRange {
 		this.__element = element;
 		this.__input = options.input || this.__element.getElementsByTagName('input')[0];
 		this.__range = options.range || this.__element.getElementsByClassName('range-slider')[0];
-		this.__min = options.min || this.__input.dataset.min || this.__range.dataset.min || 0;
-		this.__max = options.max || this.__input.dataset.max || this.__range.dataset.max || 100;
+		this.__min = parseFloat(options.min) || parseFloat(this.__input.dataset.min) || parseFloat(this.__range.dataset.min) || 0;
+		this.__max = parseFloat(options.max) || parseFloat(this.__input.dataset.max) || parseFloat(this.__range.dataset.max) || 100;
 		this.__onChangeCallback = options.onChange || null;
 		this.__slider = null;
 

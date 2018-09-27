@@ -32,6 +32,8 @@ class InputRange {
 
 				this.__slider.on('slide.one', this.__onSlide.bind(this));
 				this.__slider.on('change', this.__onSlideEnd.bind(this));
+
+				this.__onChange();
 			}
 		}
 

@@ -43,6 +43,10 @@
     <div class="column">
         <div class="range-slider" id="js-example2-range" data-step="10"></div>
     </div>
+    <div class="column" id="banknn-example">
+        <input type="text" id="mortgagesearch-price" class="form-control form-control-left" name="MortgageSearch[price]" value="2000000" data-type="price" data-a-sep=" " data-m-dec="0" data-v-min="0" data-min="50000" data-max="80000000">
+        <div class="range-slider" data-step="1000"></div>
+    </div>
 </div>
 <script src="assets/PrettyInput.js"></script>
 <script src="assets/nouislider.min.js"></script>
@@ -52,7 +56,9 @@
     let n = new InputRange(document.getElementsByClassName('column')[1], {
         input: new PrettyInput(document.getElementById('js-example2-input')),
         range: document.getElementById('js-example2-range')
-    })
+    });
+
+    let c = new InputRange(document.querySelector('#banknn-example'));
 </script>
 </body>
 </html>

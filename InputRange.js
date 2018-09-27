@@ -8,6 +8,7 @@ class InputRange {
 		this.__min = parseFloat(options.min) || parseFloat(this.__input.dataset.min) || parseFloat(this.__range.dataset.min) || 0;
 		this.__max = parseFloat(options.max) || parseFloat(this.__input.dataset.max) || parseFloat(this.__range.dataset.max) || 100;
 		this.__onChangeCallback = options.onChange || null;
+		this.__onRangeChangeCallback = options.onRangeChange || null;
 		this.__slider = null;
 
 		if (this.__input == null) {
@@ -104,6 +105,10 @@ class InputRange {
 				}
 			});
 		}
+
+		if (this.__onRangeChangeCallback) {
+			this.__onRangeChangeCallback(this);
+		}
 	}
 
 	get max() {
@@ -135,6 +140,10 @@ class InputRange {
 					'max': newMax
 				}
 			});
+		}
+
+		if (this.__onRangeChangeCallback) {
+			this.__onRangeChangeCallback(this);
 		}
 	}
 

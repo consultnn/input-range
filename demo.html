@@ -43,9 +43,19 @@
     <div class="column">
         <div class="range-slider" id="js-example2-range" data-step="10"></div>
     </div>
-    <div class="column" id="banknn-example">
-        <input type="text" id="mortgagesearch-price" class="form-control form-control-left" name="MortgageSearch[price]" value="2000000" data-type="price" data-a-sep=" " data-m-dec="0" data-v-min="0" data-min="50000" data-max="80000000">
-        <div class="range-slider" data-step="1000"></div>
+    <div class="column">
+        <h3>Формы</h3>
+        <form id="formExample">
+            <input type="text">
+            <div class="range-slider"></div>
+        </form>
+    </div>
+    <div class="column">
+        <h3>Форма (с PrettyInput)</h3>
+        <form id="formExamplePI">
+            <input type="text" id="formInputPretty">
+            <div class="range-slider"></div>
+        </form>
     </div>
 </div>
 <script src="assets/PrettyInput.js"></script>
@@ -58,7 +68,28 @@
         range: document.getElementById('js-example2-range')
     });
 
-    let c = new InputRange(document.querySelector('#banknn-example'));
+    let f = new InputRange(document.querySelector('#formExample'), {
+        onChange: onChangeHandler
+    });
+
+    document.querySelector('form').addEventListener('change', function() {
+        console.log('formChange');
+    });
+
+    function onChangeHandler(e) {
+        console.log('onChangeHandler!!!');
+    }
+
+    let x = new InputRange(document.querySelector('#formExamplePI'), {
+        input: new PrettyInput(document.querySelector('#formInputPretty')),
+        onChange: function() {
+            console.log('PrettyInputChange');
+        }
+    });
+
+    document.querySelector('#formExamplePI').addEventListener('change', function() {
+        console.log('formPrettyChange');
+    });
 </script>
 </body>
 </html>

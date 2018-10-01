@@ -5,15 +5,16 @@ class InputRange {
 		this.__element = element;
 		this.__input = options.input || this.__element.getElementsByTagName('input')[0];
 		this.__range = options.range || this.__element.getElementsByClassName('range-slider')[0];
-		this.__min = parseFloat(options.min) || parseFloat(this.__input.dataset.min) || parseFloat(this.__range.dataset.min) || 0;
-		this.__max = parseFloat(options.max) || parseFloat(this.__input.dataset.max) || parseFloat(this.__range.dataset.max) || 100;
-		this.__onChangeCallback = options.onChange || null;
-		this.__onRangeChangeCallback = options.onRangeChange || null;
-		this.__slider = null;
 
 		if (this.__input == null) {
 			throw new Error('InputRange: input does not exists');
 		}
+
+		this.__min = parseFloat(options.min) || this.__input.dataset.min || this.__range.dataset.min || 0;
+		this.__max = parseFloat(options.max) || this.__input.dataset.max || this.__range.dataset.max || 100;
+		this.__onChangeCallback = options.onChange || null;
+		this.__onRangeChangeCallback = options.onRangeChange || null;
+		this.__slider = null;
 
 		if (this.__range) {
 			if (window.noUiSlider) {
@@ -39,10 +40,8 @@ class InputRange {
 		}
 
 		if (this.__input.input) {
-			console.log('pretty');
 			this.__input.onChange = this.__onChange.bind(this);
 		} else {
-			console.log('vanilla');
 			this.__input.addEventListener('change', this.__onChange.bind(this));
 		}
 	}
@@ -69,9 +68,7 @@ class InputRange {
 			this.slider.set(newValue);
 		}
 
-		if (this.__onChangeCallback) {
-			this.__onChangeCallback(this);
-		}
+		this.__dispatchEvent();
 	}
 
 	get min() {
@@ -87,9 +84,7 @@ class InputRange {
 			if (this.input.value < newMin) {
 				this.input.value = newMin;
 
-				if (this.__onChangeCallback) {
-					this.__onChangeCallback(this);
-				}
+				this.__dispatchEvent();
 			}
 		}
 
@@ -122,10 +117,7 @@ class InputRange {
 		} else {
 			if (this.input.value > newMax) {
 				this.input.value = newMax;
-
-				if (this.__onChangeCallback) {
-					this.__onChangeCallback(this);
-				}
+				this.__dispatchEvent();
 			}
 		}
 
@@ -148,14 +140,16 @@ class InputRange {
 	}
 
 	__onSlide(sliderValue) {
-		this.input.value = parseInt(sliderValue[0]);
+		if (this.input.isPrettyInput) {
+			this.input.setValueWithoutEvents(parseInt(sliderValue[0]));
+		} else {
+			this.input.value = parseInt(sliderValue[0]);
+		}
 	}
 
 	__onSlideEnd() {
 		this.input.value = parseInt(this.slider.get());
-		if (this.__onChangeCallback) {
-			this.__onChangeCallback(this);
-		}
+		this.__dispatchEvent();
 	}
 
 	__onChange() {
@@ -165,6 +159,12 @@ class InputRange {
 
 		if (this.__onChangeCallback) {
 			this.__onChangeCallback(this);
+		}
+	}
+
+	__dispatchEvent() {
+		if (!this.input.isPrettyInput) {
+			this.input.dispatchEvent(new Event('change', { bubbles: true }));
 		}
 	}
 }

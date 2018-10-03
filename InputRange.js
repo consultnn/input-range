@@ -77,7 +77,7 @@ class InputRange {
 	}
 
 	get min() {
-		return this.__min;
+		return parseFloat(this.__min);
 	}
 
 	set min(newMin) {
@@ -112,7 +112,7 @@ class InputRange {
 	}
 
 	get max() {
-		return this.__max;
+		return parseFloat(this.__max);
 	}
 
 	set max(newMax) {

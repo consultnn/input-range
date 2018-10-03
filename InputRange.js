@@ -5,6 +5,7 @@ class InputRange {
 		this.__element = element;
 		this.__input = options.input || this.__element.getElementsByTagName('input')[0];
 		this.__range = options.range || this.__element.getElementsByClassName('range-slider')[0];
+		this.__rangeParams = options.rangeParams || null;
 
 		if (this.__input == null) {
 			throw new Error('InputRange: input does not exists');
@@ -18,17 +19,21 @@ class InputRange {
 
 		if (this.__range) {
 			if (window.noUiSlider) {
-				noUiSlider.create(this.__range, {
-					start: this.__input.value,
-					connect: 'lower',
-					step: parseInt(this.__range.dataset.step) || 1,
-					range: {
-						'min': parseInt(this.__input.dataset.min) ||
-								parseInt(this.__range.dataset.min) || 0,
-						'max': parseInt(this.__input.dataset.max) ||
-								parseInt(this.__range.dataset.max) || 100
-					}
-				});
+				if (this.__rangeParams) {
+					noUiSlider.create(this.__range, this.__rangeParams);
+				} else {
+					noUiSlider.create(this.__range, {
+						start: this.__input.value,
+						connect: 'lower',
+						step: parseInt(this.__range.dataset.step) || 1,
+						range: {
+							'min': parseInt(this.__input.dataset.min) ||
+							parseInt(this.__range.dataset.min) || 0,
+							'max': parseInt(this.__input.dataset.max) ||
+							parseInt(this.__range.dataset.max) || 100
+						}
+					});
+				}
 
 				this.__slider = this.__range.noUiSlider;
 
@@ -39,7 +44,7 @@ class InputRange {
 			}
 		}
 
-		if (this.__input.input) {
+		if (this.__input.isPrettyInput) {
 			this.__input.onChange = this.__onChange.bind(this);
 		} else {
 			this.__input.addEventListener('change', this.__onChange.bind(this));

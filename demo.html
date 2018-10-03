@@ -38,7 +38,7 @@
     </div>
     <div class="column">
         <h3>Поле ввода с настраиваемой версткой</h3>
-        <input type="text" data-min="100" data-max="500" id="js-example2-input">
+        <input type="text" data-min="300000" data-max="100000000" id="js-example2-input">
     </div>
     <div class="column">
         <div class="range-slider" id="js-example2-range" data-step="10"></div>
@@ -65,7 +65,19 @@
     let p = new InputRange(document.getElementById('example'));
     let n = new InputRange(document.getElementsByClassName('column')[1], {
         input: new PrettyInput(document.getElementById('js-example2-input')),
-        range: document.getElementById('js-example2-range')
+        range: document.getElementById('js-example2-range'),
+        rangeParams: {
+            start: 100,
+            connect: "lower",
+            range: {
+                'min': [300000, 50000],
+                '33%': [1000000, 100000],
+                '55%': [2000000, 100000],
+                '65%': [3000000, 100000],
+                '75%': [4000000, 150000],
+                'max': [100000000, 250000]
+            }
+        }
     });
 
     let f = new InputRange(document.querySelector('#formExample'), {

@@ -1,0 +1,19 @@
+{
+  "name": "input-range",
+  "version": "1.0.5",
+  "description": "## Описание ![Пример](/example.png)",
+  "main": "InputRange.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/consultnn/input-range.git"
+  },
+  "author": "apcom52 <apcom@live.ru>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/consultnn/input-range/issues"
+  },
+  "homepage": "https://github.com/consultnn/input-range#readme"
+}
